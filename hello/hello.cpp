@@ -1,12 +1,11 @@
 #include "hello.hpp"
-#include <cstdio>
 
-int hello()
-{
-  return 42;
-}
+// __attribute__((export_name("hello")))
 
-void say()
+extern "C"
 {
-  std::printf("Say hello~");
+  int hello()
+  {
+    return 42;
+  }
 }

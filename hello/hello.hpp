@@ -1,3 +1,4 @@
-int hello();
-
-void say();
+extern "C"
+{
+  int hello();
+}
