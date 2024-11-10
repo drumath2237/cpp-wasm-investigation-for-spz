@@ -1,0 +1,3 @@
+[submodule "clang-spz-build-testbed/spz"]
+	path = clang-spz-build-testbed/spz
+	url = git@github.com:nianticlabs/spz.git
