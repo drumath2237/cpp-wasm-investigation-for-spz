@@ -1,3 +1,6 @@
 [submodule "clang-spz-build-testbed/spz"]
 	path = clang-spz-build-testbed/spz
 	url = git@github.com:nianticlabs/spz.git
+[submodule "clang-spz-build-testbed/zlib"]
+	path = clang-spz-build-testbed/zlib
+	url = git@github.com:madler/zlib.git
