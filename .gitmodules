@@ -4,3 +4,6 @@
 [submodule "clang-spz-build-testbed/zlib"]
 	path = clang-spz-build-testbed/zlib
 	url = git@github.com:madler/zlib.git
+[submodule "emcc-sandbox/spz"]
+	path = emcc-sandbox/spz
+	url = git@github.com:nianticlabs/spz.git

@@ -4,9 +4,12 @@ const main = async () => {
   const wasmBinary = await readFile("./build/main.wasm");
 
   const { instance } = await WebAssembly.instantiate(wasmBinary);
-  const { fib } = instance.exports;
+  const { fib, hoge } = instance.exports;
 
-  console.log(fib(20));
+  console.log(instance.exports);
+
+  console.log(hoge());
 };
 
 main();
+
