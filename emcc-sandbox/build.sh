@@ -5,8 +5,9 @@ if [ ! -d build ]; then
 fi
 
 em++ main.cpp \
- --std=c++17 -o \
- ./build/main.mjs \
+ --std=c++17 \
+ -lembind \
+ -o ./build/main.mjs \
  -s USE_ZLIB=1 \
  -s WASM=1 \
  -s MODULARIZE=1 \
