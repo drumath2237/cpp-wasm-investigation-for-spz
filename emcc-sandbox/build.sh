@@ -6,5 +6,8 @@ fi
 
 em++ main.cpp \
  --std=c++17 -o \
- ./build/main.js \
+ ./build/main.mjs \
  -s USE_ZLIB=1 \
+ -s WASM=1 \
+ -s MODULARIZE=1 \
+ -s EXPORT_ES6=1
