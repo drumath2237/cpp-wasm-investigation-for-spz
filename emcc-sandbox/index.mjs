@@ -13,18 +13,19 @@ const main = async () => {
 
     gsPtr = wasmModule._malloc(Uint8Array.BYTES_PER_ELEMENT * gsBinData.length)
     if (gsPtr == null) { throw new Error("allocation failed") }
-    
+
     wasmModule.HEAPU8.set(gsBinData, gsPtr / Uint8Array.BYTES_PER_ELEMENT)
 
     const gsCloud = wasmModule.load_spz(gsPtr, gsBinData.length)
     console.log(gsCloud);
 
-
   } catch (e) {
     console.error(e);
 
   } finally {
-    wasmModule._free(gsPtr)
+    if (gsPtr !== null) {
+      wasmModule._free(gsPtr)
+    }
   }
 
 

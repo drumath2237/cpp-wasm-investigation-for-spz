@@ -44,12 +44,12 @@ vector<uint8_t> save_spz(int points)
   return packed;
 }
 
-GaussianCloud load_spz(const std::string gsPtr, const int length)
+GaussianCloud load_spz(const int gsPtr, const int length)
 {
-  cout << sizeof(gsPtr) << endl;
-  return {};
-  // vector<uint8_t> dataBuffer(std::begin(gsPtr), std::end(gsPtr));
-  // return spz::loadSpz(gsPtr);
+  auto pointer = (uint8_t*)gsPtr;
+  auto spzBuffer = vector<uint8_t>(pointer, pointer+length);
+
+  return spz::loadSpz(spzBuffer);
 }
 
 EMSCRIPTEN_BINDINGS(my_module)
