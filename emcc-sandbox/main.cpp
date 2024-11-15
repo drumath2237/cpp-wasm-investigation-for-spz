@@ -2,6 +2,9 @@
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
 
+#include <vector>
+#include <iterator>
+
 #include "spz/src/cc/splat-types.h"
 #include "spz/src/cc/splat-types.cc"
 
@@ -41,10 +44,12 @@ vector<uint8_t> save_spz(int points)
   return packed;
 }
 
-GaussianCloud load_spz(const emscripten::val &data)
+GaussianCloud load_spz(const std::string gsPtr, const int length)
 {
-  vector<uint8_t> dataBuffer = vecFromJSArray<uint8_t>(data);
-  return loadSpz(dataBuffer);
+  cout << sizeof(gsPtr) << endl;
+  return {};
+  // vector<uint8_t> dataBuffer(std::begin(gsPtr), std::end(gsPtr));
+  // return spz::loadSpz(gsPtr);
 }
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -52,7 +57,7 @@ EMSCRIPTEN_BINDINGS(my_module)
   emscripten::function("create_test", &create_test);
   emscripten::function("hoge", &hoge);
   emscripten::function("save_spz", &save_spz);
-  emscripten::function("load_spz", &load_spz);
+  emscripten::function("load_spz", &load_spz, allow_raw_pointers());
 
   register_vector<float>("vector<float>");
   register_vector<uint8_t>("vector<uint8_t>");

@@ -2,24 +2,30 @@ import { readFile } from "fs/promises";
 import Module from "./build/main.mjs";
 
 const main = async () => {
-const { save_spz, load_spz, HEAP8, _malloc, _free } = await Module();
+  const wasmModule = await Module();
 
-// const buf = save_spz(0);
-// console.log(buf.size());
+  const gsFile = await readFile("./spz/samples/racoonfamily.spz");
+  const gsBinData = new Uint8Array(gsFile.buffer)
 
-// for (let i = 0; i < buf.size();i++)
-// {
-//   console.log(buf.get(i));
+  let gsPtr = null;
 
-// }
+  try {
 
-// const gsData = await readFile("./spz/samples/racoonfamily.spz");
-// const gaussianCloud = load_spz(new Uint8Array(gsData.buffer));
-// console.log(gaussianCloud);
+    gsPtr = wasmModule._malloc(Uint8Array.BYTES_PER_ELEMENT * gsBinData.length)
+    if (gsPtr == null) { throw new Error("allocation failed") }
+    
+    wasmModule.HEAPU8.set(gsBinData, gsPtr / Uint8Array.BYTES_PER_ELEMENT)
 
-console.log(HEAP8)
-console.log(_malloc);
-console.log(_free);
+    const gsCloud = wasmModule.load_spz(gsPtr, gsBinData.length)
+    console.log(gsCloud);
+
+
+  } catch (e) {
+    console.error(e);
+
+  } finally {
+    wasmModule._free(gsPtr)
+  }
 
 
 };
