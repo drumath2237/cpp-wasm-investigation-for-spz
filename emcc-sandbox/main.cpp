@@ -46,10 +46,15 @@ vector<uint8_t> save_spz(int points)
 
 GaussianCloud load_spz(const int gsPtr, const int length)
 {
-  auto pointer = (uint8_t*)gsPtr;
-  auto spzBuffer = vector<uint8_t>(pointer, pointer+length);
+  auto pointer = (uint8_t *)gsPtr;
+  auto spzBuffer = vector<uint8_t>(pointer, pointer + length);
 
   return spz::loadSpz(spzBuffer);
+}
+
+int vf32_ptr(vector<float> &v)
+{
+  return (int)(v.data());
 }
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -58,6 +63,7 @@ EMSCRIPTEN_BINDINGS(my_module)
   emscripten::function("hoge", &hoge);
   emscripten::function("save_spz", &save_spz);
   emscripten::function("load_spz", &load_spz, allow_raw_pointers());
+  emscripten::function("vf32_ptr", &vf32_ptr, allow_raw_pointers());
 
   register_vector<float>("vector<float>");
   register_vector<uint8_t>("vector<uint8_t>");

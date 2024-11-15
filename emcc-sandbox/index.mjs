@@ -19,6 +19,10 @@ const main = async () => {
     const gsCloud = wasmModule.load_spz(gsPtr, gsBinData.length)
     console.log(gsCloud);
 
+    const positionPtr = wasmModule.vf32_ptr(gsCloud.positions)
+    const positionBuf = new Float32Array(wasmModule.HEAP32.buffer, positionPtr, gsCloud.positions.size())
+    console.log(positionBuf);
+
   } catch (e) {
     console.error(e);
 
